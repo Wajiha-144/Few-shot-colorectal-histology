@@ -1,48 +1,58 @@
-# Few-Shot Colorectal Histopathology Image Classification
+# Few-Shot Colorectal Histopathology Classification
 
-## Project Overview
+## Track A — Research & Development
 
-This project investigates few-shot image classification for colorectal
-histopathology using meta-learning.
+This project investigates few-shot colorectal histopathology image
+classification using meta-learning.
 
-The project uses the publicly available Colorectal Histology MNIST
-dataset. Since the dataset does not provide explicit genetic mutation
-labels, this project focuses on histopathology image classification
-rather than mutation-level prediction.
+The project focuses on comparative analysis, technical novelty,
+ablation studies, and reproducibility.
+
+## Research Question
+
+Can dynamically adapted class prototypes improve few-shot colorectal
+histopathology image classification compared with established
+meta-learning approaches?
 
 ## Objectives
 
-- Develop a few-shot colorectal histopathology classification system.
-- Evaluate established meta-learning approaches.
+- Develop a reproducible few-shot histopathology classification pipeline.
+- Implement established meta-learning baselines.
 - Compare Prototypical Networks, Matching Networks, and MAML.
-- Develop a novel dynamic prototype adaptation approach.
+- Develop a Dynamic Prototype Adaptation approach.
+- Conduct ablation studies to evaluate the contribution of the proposed
+  components.
 - Evaluate performance under different few-shot settings.
 
 ## Dataset
 
-The primary dataset is the Colorectal Histology MNIST dataset.
+The project uses the publicly available Colorectal Histology MNIST
+dataset.
 
 Dataset source:
 
 https://www.kaggle.com/datasets/kmader/colorectal-histology-mnist
 
-The raw dataset is not stored in this repository because of dataset
-size and repository storage limitations.
+The dataset contains histopathology image classes rather than explicit
+genetic mutation labels. Therefore, this project focuses on
+few-shot histopathology classification rather than mutation prediction.
 
-## Few-Shot Experimental Setup
+Raw image files are not stored in this repository.
 
-The project will evaluate:
+## Experimental Design
 
-- 5-way 1-shot classification
-- 5-way 5-shot classification
-- 5-way 10-shot classification
+The project will evaluate few-shot classification under:
 
-The dataset will be divided at the class level into meta-training
-and meta-testing classes.
+- 5-way 1-shot
+- 5-way 5-shot
+- 5-way 10-shot
+
+The dataset will be divided at the class level into meta-training and
+meta-testing classes.
 
 ## Baselines
 
-The proposed approach will be compared against:
+The proposed method will be compared against:
 
 1. Prototypical Networks
 2. Matching Networks
@@ -50,28 +60,57 @@ The proposed approach will be compared against:
 
 ## Proposed Method
 
-The proposed method introduces dynamic prototype adaptation, where
-support examples receive learned importance weights when constructing
-class prototypes.
+The proposed approach introduces Dynamic Prototype Adaptation.
+
+Instead of assigning equal importance to every support example when
+constructing a class prototype, the method learns importance weights
+for support examples and uses these weights to construct an adaptive
+prototype.
+
+## Ablation Study
+
+The contribution of the proposed components will be investigated by
+comparing:
+
+- Standard mean prototypes
+- Dynamically weighted prototypes
+- Different prototype adaptation configurations
 
 ## Evaluation
 
-The methods will be evaluated using:
+Models will be evaluated using:
 
 - Accuracy
 - Precision
 - Recall
 - Macro-F1
-- Confidence intervals across test episodes
+- 95% confidence intervals
+
+Multiple test episodes will be used to obtain reliable estimates of
+few-shot performance.
 
 ## Reproducibility
 
-Experiments will use fixed random seeds and document:
+Experiments will document:
 
-- Dataset version
+- Dataset source and version
 - Python version
 - PyTorch version
-- Model configuration
+- Random seed
+- Image preprocessing
+- Model architecture
 - Hyperparameters
 - Number of episodes
-- Random seed
+- Few-shot configuration
+- Evaluation procedure
+
+## Project Structure
+
+```text
+data/          Dataset metadata and documentation
+notebooks/     Exploratory and experimental notebooks
+src/           Source code
+configs/       Experiment configurations
+experiments/   Experimental runs
+results/       Tables, figures, and logs
+paper/         Technical paper
