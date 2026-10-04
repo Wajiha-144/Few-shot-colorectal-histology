@@ -1,7 +1,6 @@
 # Few-Shot Colorectal Histopathology Classification
 
 ## Track A — Research & Development
-
 This project investigates few-shot colorectal histopathology image
 classification using meta-learning.
 
