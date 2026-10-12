@@ -1,0 +1,84 @@
+{
+  "dataset": "Colorectal Histology MNIST (Kaggle kmader/colorectal-histology-mnist), from Kather et al. 2016",
+  "files_used": "150x150 RGB tile folders (CSV versions not used)",
+  "n_images_clean": 5000,
+  "n_classes": 8,
+  "per_class_counts": {
+    "1": 625,
+    "2": 625,
+    "3": 625,
+    "4": 625,
+    "5": 625,
+    "6": 625,
+    "7": 625,
+    "8": 625
+  },
+  "corrupt_removed": 0,
+  "duplicates_removed": 0,
+  "missing_values": 0,
+  "stored_format": "uint8 RGB 150x150",
+  "model_input": "224x224 float32, ImageNet-normalised (applied on the fly)",
+  "protocol": "in-domain, 4-way, shots [1, 5, 10], 15 queries/class",
+  "splits": {
+    "A": {
+      "base": [
+        2,
+        5,
+        7,
+        8
+      ],
+      "novel": [
+        1,
+        3,
+        4,
+        6
+      ]
+    },
+    "B": {
+      "base": [
+        1,
+        4,
+        6,
+        8
+      ],
+      "novel": [
+        2,
+        3,
+        5,
+        7
+      ]
+    },
+    "C": {
+      "base": [
+        3,
+        4,
+        7,
+        8
+      ],
+      "novel": [
+        1,
+        2,
+        5,
+        6
+      ]
+    }
+  },
+  "test_episodes_per_shot": 600,
+  "val_episodes_per_shot": 300,
+  "test_seed_base": 10000,
+  "val_seed_base": 20000,
+  "global_seed": 42,
+  "checks_passed": {
+    "episode structure (sizes, classes)": true,
+    "episode images match role and label": true,
+    "support/query disjoint within each episode": true,
+    "supports nested across 1/5/10-shot": true,
+    "queries & class sets shared across shots": true,
+    "episodes reproducible from seeds": true,
+    "novel-class images never in base roles": true,
+    "training episode uses base_train only": true,
+    "5,000 images after cleaning (or fewer only if duplicates/corrupt removed)": true,
+    "all images 150x150 RGB uint8": true,
+    "8 labels (1-8)": true
+  }
+}
