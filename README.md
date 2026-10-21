@@ -55,15 +55,17 @@ Class labels: 1 Tumour epithelium, 2 Simple stroma, 3 Complex stroma, 4 Immune c
 
 ## Baselines
 
-All methods share the same backbone, pretrained weights and episodes:
+## Baselines
 
-1. Prototypical Networks (ProtoNet)
-2. Matching Networks
-3. Relation Networks
-4. MAML / ANIL
-5. Fine-tuning baseline (Baseline++ / linear probe)
+All methods will use a shared ResNet-18 backbone initialized with ImageNet-pretrained weights wherever compatible with each method's training procedure. Methods will be evaluated using the same fixed class splits and saved episodes to ensure fair comparison.
+1. **Prototypical Networks (ProtoNet):** Classifies query images by comparing their features with the average feature representation of each class.
+2. **Matching Networks:** Uses similarities between query images and individual labelled support examples to make predictions.
+3. **Relation Networks:** Learns a relation score to determine how well a query image matches each class representation.
+4. **MAML / ANIL:** Uses meta-learning to prepare the model to adapt to new classes from a small number of examples. The selected variant will be documented.
+5. **Fine-tuning baseline:** Further trains the pretrained model using the available labelled support examples. The implementation (Baseline++ or linear probe) will be selected and documented.
+6. **Dynamic Prototype Adaptation (DPA):** The proposed method, combining weighted prototypes, query-conditioned adaptation, and the typicality and consistency loss terms.
 
-The fine-tuning baseline is included to test why meta-learning may underperform simple fine-tuning.
+The main comparison will evaluate all implemented methods in 4-way 1-shot, 5-shot, and 10-shot settings. Results will include accuracy, precision, recall, macro-F1, and 95% confidence intervals. The same saved evaluation episodes will be used for paired comparisons wherever applicable.
 
 ## Backbone
 
