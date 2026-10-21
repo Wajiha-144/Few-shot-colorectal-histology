@@ -33,25 +33,18 @@ The dataset has tissue-type labels, not genetic mutation labels. The project the
 Raw image files are not stored in this repository (`data/raw/` is gitignored). The Phase 2 notebook locates or downloads them.
 
 ## Experimental Design
+Class Splits
+The dataset contains eight tissue classes. Each experiment uses four classes for training and four different classes for few-shot testing.
 
-Eight classes cannot support a valid 5-way few-shot test with disjoint base and novel classes (only 3 base classes would remain), and a single dataset rules out a cross-domain setup. The protocol is therefore **in-domain, with 4 base and 4 novel classes**:
+Split A: Primary experiment.
+Splits B and C: Additional experiments to assess whether the results generalize across different choices of base and novel classes.
 
-- 4-way 1-shot
-- 4-way 5-shot
-- 4-way 10-shot
+The predefined Phase 2 class splits will be used without changing them based on observed results. A stratified 20% of base-class images will be reserved for validation. Novel-class images will not be used to train the base classifier or select model settings.
 
-| Split | Base classes (training) | Novel classes (testing) |
-|---|---|---|
-| A (primary) | 2, 5, 7, 8 | 1, 3, 4, 6 |
-| B (alternate) | 1, 4, 6, 8 | 2, 3, 5, 7 |
-| C (alternate) | 3, 4, 7, 8 | 1, 2, 5, 6 |
-
-Class labels: 1 Tumour epithelium, 2 Simple stroma, 3 Complex stroma, 4 Immune cells (lympho), 5 Debris and mucus, 6 Normal mucosal glands, 7 Adipose tissue, 8 Background.
-
-- Splits are fixed before training and are not changed after seeing results. Split A is the primary result; B and C check robustness.
-- A stratified 20% of each base class's images is held out for validation and model selection. Novel-class images are never used for training or selection.
-- **Test episodes:** 600 per shot setting per split, 15 query images per class, episode seeds `10000 + i`. The class set and queries are identical across 1-, 5- and 10-shot, and supports are nested, so all methods see the same tasks.
-- **Validation episodes:** 300 per shot setting, seeds `20000 + i`.
+Few-Shot Evaluation Protocol
+Each test episode contains four tissue classes and 15 query images per class. The classifier receives 1, 5, or 10 labelled support images per class and predicts the labels of the query images.
+The planned evaluation uses 600 test episodes per shot setting per split. The episode files generated during Phase 2 will be reused so that methods are evaluated on matching tasks. Where the protocol specifies nested support sets, the 1-shot support set will be contained within the 5-shot set, which will be contained within the 10-shot set. Query images will remain the same across these shot settings within each episode.
+At least three independent training seeds will be used per method. Episode sampling seeds and model-training seeds will be recorded separately.
 
 ## Baselines
 
@@ -89,9 +82,13 @@ Shot-setting analysis: Compare the contribution of each component under 1-shot, 
 
 ## Evaluation
 
-- Metrics: accuracy, precision, recall and macro-F1, computed per episode and then averaged.
-- 95% confidence intervals over test episodes; paired tests on shared episodes for DPA versus each baseline.
-- 3 or more independent training seeds per method.
+The following metrics will be reported:
+
+Accuracy: The proportion of query images classified correctly.
+Precision: How often predictions for a class are correct.
+Recall: How many actual examples of a class are correctly identified.
+Macro-F1: The average F1 score across classes, giving each class equal importance.
+95% confidence intervals: To describe uncertainty around the estimated performance.
 
 ## Reproducibility
 
