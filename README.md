@@ -6,9 +6,9 @@ This project investigates few-shot colorectal histopathology image classificatio
 
 ## Research Question
 
-Can a query-conditioned prototype, trained with a loss that penalises atypical support samples (Dynamic Prototype Adaptation), improve few-shot colorectal histopathology classification compared with established meta-learning and fine-tuning approaches, including in the 1-shot setting?
+Can Dynamic Prototype Adaptation (DPA), using an ImageNet-pretrained ResNet-18 backbone, improve few-shot colorectal histopathology image classification compared with established meta-learning methods and a fine-tuning baseline in 1-shot, 5-shot, and 10-shot settings?
 
-**Secondary question:** Under identical backbones and episodes, why do meta-learning methods often match or trail simple fine-tuning on histology, and does the proposed loss narrow that gap?
+**Secondary question:Under the same backbone initialization and evaluation episodes, how do meta-learning approaches compare with fine-tuning, and does the proposed DPA method reduce any observed performance gap?
 
 ## Objectives
 
@@ -67,7 +67,7 @@ The fine-tuning baseline is included to test why meta-learning may underperform 
 
 ## Backbone
 
-Primary: ViT-Small/16 with self-supervised DINO ImageNet weights. Comparison: ResNet-50 (ImageNet).
+The primary backbone is ImageNet-pretrained ResNet-18. The same architecture and agreed initial weights will be used across the comparison methods where their training procedures permit.
 
 ## Proposed Method: Dynamic Prototype Adaptation (DPA)
 
@@ -81,11 +81,11 @@ It is trained with a custom loss: episodic cross-entropy, plus a typicality term
 The weighted-prototype idea exists in prior work, so the contribution claimed here is the combination of query-conditioned adaptation with the loss that trains it. Related work will be reviewed fully in the technical paper.
 
 ## Ablation Study
-
-- Standard mean prototypes vs. dynamically weighted prototypes
-- With vs. without the custom loss (typicality and consistency terms separately)
-- Query-conditioned vs. support-only weighting
-- ViT vs. CNN backbone
+The ablation study will investigate which components of Dynamic Prototype Adaptation (DPA) contribute to its performance, using the same ResNet-18 backbone and evaluation protocol.
+Standard vs. weighted prototypes: Compare ordinary class prototypes with prototypes that assign different importance to support examples.
+Contribution of the custom loss: Compare DPA trained with and without the typicality term and consistency term, including each term separately.
+Query-conditioned vs. support-only adaptation: Test whether allowing the query image to influence the class representation improves classification.
+Shot-setting analysis: Compare the contribution of each component under 1-shot, 5-shot, and 10-shot settings.
 
 ## Evaluation
 
