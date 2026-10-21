@@ -55,8 +55,6 @@ Class labels: 1 Tumour epithelium, 2 Simple stroma, 3 Complex stroma, 4 Immune c
 
 ## Baselines
 
-## Baselines
-
 All methods will use a shared ResNet-18 backbone initialized with ImageNet-pretrained weights wherever compatible with each method's training procedure. Methods will be evaluated using the same fixed class splits and saved episodes to ensure fair comparison.
 1. **Prototypical Networks (ProtoNet):** Classifies query images by comparing their features with the average feature representation of each class.
 2. **Matching Networks:** Uses similarities between query images and individual labelled support examples to make predictions.
